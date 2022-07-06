@@ -1,63 +1,50 @@
-import { MdPhoto as icon } from "react-icons/md";
+import { ImageIcon } from "@sanity/icons";
 
 export default {
   name: "photo",
   title: "Photo",
   type: "document",
-  icon,
+  icon: ImageIcon,
   fields: [
-    {
-      name: "title",
-      title: "Title",
-      type: "string",
-    },
-    {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: {
-        source: "title",
-        maxLength: 100,
-      },
-    },
-    {
-      name: "overview",
-      title: "Overview",
-      type: "blockContent",
-    },
-    {
-      name: "date",
-      title: "Date",
-      type: "datetime",
-    },
     {
       name: "image",
       title: "Image",
       type: "image",
       options: {
-        hotspot: true,
+        metadata: [
+          "exif", // Default: not included
+          "location", // Default: not included
+        ],
       },
+      fields: [
+        {
+          name: "caption",
+          type: "string",
+          title: "Caption",
+          options: {
+            isHighlighted: true, // <-- make this field easily accessible
+          },
+        },
+      ],
     },
     {
-      name: "castMembers",
-      title: "Cast Members",
+      name: "albums",
+      title: "Albums",
       type: "array",
-      of: [{ type: "castMember" }],
-    },
-    {
-      name: "crewMembers",
-      title: "Crew Members",
-      type: "array",
-      of: [{ type: "crewMember" }],
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "album" }],
+        },
+      ],
     },
   ],
   preview: {
     select: {
-      title: "title",
-      date: "releaseDate",
-      media: "poster",
-      castName0: "castMembers.0.person.name",
-      castName1: "castMembers.1.person.name",
+      title: "image.caption",
+      date: "date",
+      media: "image",
+      album: "albums.0.album.name",
     },
     prepare(selection) {
       const year = selection.date && selection.date.split("-")[0];

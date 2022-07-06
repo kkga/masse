@@ -1,16 +1,16 @@
-import { UserIcon } from "@sanity/icons";
+import { ImagesIcon } from "@sanity/icons";
 
 export default {
-  name: "person",
-  title: "Person",
+  name: "album",
+  title: "Album",
   type: "document",
-  icon: UserIcon,
+  icon: ImagesIcon,
   fields: [
     {
       name: "name",
       title: "Name",
       type: "string",
-      description: 'Please use "Firstname Lastname" format',
+      description: "Album name",
     },
     {
       name: "slug",
@@ -25,6 +25,7 @@ export default {
       name: "image",
       title: "Image",
       type: "image",
+      description: "Cover image",
       options: {
         hotspot: true,
       },
