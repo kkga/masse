@@ -3,7 +3,7 @@ import "preact/debug";
 import { h } from "preact";
 import { tw } from "@twind";
 import Feed from "../islands/Feed.tsx";
-import { runQuery, urlFor } from "../SanityAPI.ts";
+import { runQuery } from "../SanityAPI.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 
 export const handler: Handlers<any | null> = {
