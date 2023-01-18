@@ -18,7 +18,7 @@ export default function Feed({ photos }: FeedProps) {
     <div>
       {lightbox && (
         <div
-          class="fixed inset-0 flex p-8 gap-8 place-content-center bg-black"
+          class="fixed inset-0 flex p-0 sm:p-8 place-content-center bg-black"
           onClick={() => setLightbox(null)}
         >
           <img
@@ -29,7 +29,7 @@ export default function Feed({ photos }: FeedProps) {
         </div>
       )}
 
-      <div class="grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-12 place-items-center">
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-12 place-items-center">
         {photos.map((photo) => <Photo onClick={handleClick} photo={photo} />)}
       </div>
     </div>
