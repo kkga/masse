@@ -1,7 +1,4 @@
-/** @jsx h */
-import { Fragment, h } from "preact";
 import { useState } from "preact/hooks";
-import { tw } from "@twind";
 import { urlFor } from "../SanityAPI.ts";
 import Photo from "./Photo.tsx";
 
@@ -15,26 +12,24 @@ export default function Feed({ photos }: FeedProps) {
   const handleClick = (photoId: string) => {
     const photo = photos.find((p) => p._id === photoId);
     if (photo) setLightbox(photo);
-    console.log(photoId);
   };
 
-  const grid = tw`grid grid-cols-3 gap-16 place-items-center`;
-
   return (
-    <div class={tw`m-8`}>
+    <div>
       {lightbox && (
         <div
-          class={tw`fixed inset-0 flex place-content-center p-8 bg-black`}
+          class="fixed inset-0 flex p-8 gap-8 place-content-center bg-black"
           onClick={() => setLightbox(null)}
         >
           <img
-            src={`${urlFor(lightbox.asset._ref).width(1024)}`}
+            class="object-contain"
+            src={`${urlFor(lightbox.asset._ref).width(2048)}`}
             alt={lightbox.title}
           />
         </div>
       )}
 
-      <div class={grid}>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-12 place-items-center">
         {photos.map((photo) => <Photo onClick={handleClick} photo={photo} />)}
       </div>
     </div>

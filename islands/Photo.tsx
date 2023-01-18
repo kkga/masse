@@ -1,6 +1,3 @@
-/** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
 import { urlFor } from "../SanityAPI.ts";
 
 interface PhotoProps {
@@ -16,7 +13,7 @@ interface PhotoProps {
 }
 
 export default function Photo({ photo, onClick }: PhotoProps) {
-  const caption = tw`text-xs mt-2 text-center`;
+  const caption = "text-xs mt-2 text-center";
 
   return (
     <figure
@@ -24,6 +21,7 @@ export default function Photo({ photo, onClick }: PhotoProps) {
       onClick={() => onClick(photo._id)}
     >
       <img
+        class="select-none"
         src={`${urlFor(photo.asset._ref).width(1024)}`}
       />
       <figcaption class={caption}>
