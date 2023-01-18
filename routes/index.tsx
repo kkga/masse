@@ -24,7 +24,7 @@ export default function Home({ data }: PageProps<Photo[] | null>) {
 
   return (
     <div class="flex flex-col gap-8 sm:gap-12 p-8 sm:p-12 bg-black text-gray-500">
-      <div class="text-sm">This gallery is work in progres...</div>
+      <div class="text-sm">work in progress...</div>
       <Feed photos={data} />
     </div>
   );
