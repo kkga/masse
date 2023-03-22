@@ -1,4 +1,4 @@
-import imageURLBuilder from "sanity/image-url";
+import imageURLBuilder from "image-url";
 
 type SanityClientOptions = {
   projectId: string;
@@ -19,8 +19,7 @@ const sanityClient = (options: SanityClientOptions) => {
   const { useCdn, projectId, dataset, token, apiVersion } = options;
   const hasToken = token && token.length > 0;
   const baseHost = useCdn && !hasToken ? "apicdn.sanity.io" : "api.sanity.io";
-  const endpoint =
-    `https://${projectId}.${baseHost}/v${apiVersion}/data/query/${dataset}`;
+  const endpoint = `https://${projectId}.${baseHost}/v${apiVersion}/data/query/${dataset}`;
 
   // Parse JSON and throw on bad responses
   const responseHandler = (response: Response) => {
@@ -38,7 +37,7 @@ const sanityClient = (options: SanityClientOptions) => {
     }, {});
 
   return {
-    fetch: async (query: string, parameters?: QueryParameters) => {
+    fetch: (query: string, parameters?: QueryParameters) => {
       const urlParams = new URLSearchParams({
         query,
         ...(parameters && transformedParams(parameters)),
@@ -61,9 +60,7 @@ const sanityClient = (options: SanityClientOptions) => {
   };
 };
 
-export const runQuery = async (
-  query: string,
-) => {
+export const runQuery = async (query: string) => {
   const client = sanityClient({
     ...sanityCredentials,
     useCdn: false,

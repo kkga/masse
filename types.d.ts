@@ -1,4 +1,8 @@
-export interface Photo {
+export interface IPhoto {
+  _id: string;
+  asset: {
+    _ref: string;
+    _type: string;
+  };
   caption: string;
-  asset: { _ref: string };
 }

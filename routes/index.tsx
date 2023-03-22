@@ -1,9 +1,10 @@
+import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { runQuery } from "../SanityAPI.ts";
 import Feed from "../islands/Feed.tsx";
-import { Photo } from "../types.d.ts";
+import { runQuery } from "../sanity.ts";
+import { IPhoto } from "../types.d.ts";
 
-export const handler: Handlers<Photo[] | null> = {
+export const handler: Handlers<IPhoto[] | null> = {
   async GET(_, ctx) {
     const query = `
     * [_type == 'photo'] | order(_createdAt desc) {
@@ -17,15 +18,16 @@ export const handler: Handlers<Photo[] | null> = {
   },
 };
 
-export default function Home({ data }: PageProps<Photo[] | null>) {
-  if (!data) {
-    return <h1>No photos not found</h1>;
-  }
-
+export default function Home({ data }: PageProps<IPhoto[] | null>) {
   return (
-    <div class="flex flex-col gap-8 sm:gap-12 p-8 sm:p-12 bg-black text-gray-500">
-      <div class="text-sm">work in progress...</div>
-      <Feed photos={data} />
-    </div>
+    <html>
+      <Head>
+        <title>kkga-photos</title>
+      </Head>
+      <body class="bg-white text-gray-600 p-8 text-sm">
+        <div class="mb-8">work in progress...</div>
+        {data && <Feed photos={data} />}
+      </body>
+    </html>
   );
 }

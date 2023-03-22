@@ -1,37 +1,23 @@
-import { urlFor } from "../SanityAPI.ts";
+import { urlFor } from "../sanity.ts";
+import { IPhoto } from "../types.d.ts";
 
 interface PhotoProps {
-  photo: {
-    _id: string;
-    asset: {
-      _ref: string;
-      _type: string;
-    };
-    caption: string;
-  };
-  onClick: (id: string) => void;
+  photo: IPhoto;
+  onClick: () => void;
 }
 
 export default function Photo({ photo, onClick }: PhotoProps) {
-  const caption = "text-xs mt-2 text-center";
-
   return (
     <figure
+      class="flex flex-col gap-4 items-center justify-center"
       key={photo._id}
-      onClick={() => onClick(photo._id)}
     >
       <img
-        class="select-none"
+        onClick={onClick}
+        class="select-none cursor-pointer"
         src={`${urlFor(photo.asset._ref).width(1024)}`}
       />
-      <figcaption class={caption}>
-        {photo.caption}
-        {
-          // <pre class={tw`bg-gray-100 overflow-scroll p-4 text-xs`}>
-          //   {JSON.stringify(photo, null, 2)}
-          // </pre>
-        }
-      </figcaption>
+      <figcaption class="text-xs text-center">{photo.caption}</figcaption>
     </figure>
   );
 }
