@@ -27,14 +27,14 @@ export default function Feed({ photos, ...rest }: FeedProps) {
       if (e.key === "Escape") setCurrent(null);
       const curI = photos.findIndex((p) => p._id === current?._id);
 
-      if (e.key === "ArrowLeft" && curI) {
+      if (e.key === "ArrowLeft") {
         if (curI === -1) {
           setCurrent(null);
           return;
         }
         setCurrent(photos[curI - 1]);
       }
-      if (e.key === "ArrowRight" && curI) {
+      if (e.key === "ArrowRight") {
         if (curI === photos.length - 1) {
           setCurrent(null);
           return;
@@ -45,7 +45,7 @@ export default function Feed({ photos, ...rest }: FeedProps) {
 
     const handlePopState = () => setCurrent(null);
 
-    if (current) {
+    if (current !== null) {
       addEventListener("popstate", handlePopState);
       addEventListener("keydown", handleKey);
     } else {
@@ -62,7 +62,10 @@ export default function Feed({ photos, ...rest }: FeedProps) {
   return (
     <div>
       {current && (
-        <dialog class="fixed flex inset-0 h-[100vh] p-8 bg-white" open>
+        <dialog
+          class="fixed flex w-[100vw] h-[100vh] z-50 inset-0 h-[100vh] p-8 bg-white"
+          open
+        >
           <figure
             class="flex-1 flex gap-8 text-gray-500 text-sm"
             onClick={() => setCurrent(null)}
